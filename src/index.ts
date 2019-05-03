@@ -2,15 +2,18 @@ import { IVSCodeTheme, IMonacoThemeRule } from "./interfaces";
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as monaco from 'monaco-editor';
+export * from './interfaces';
 
-fs.readdirSync('./src/themes').map(async (fileName) => {
-    let themeFile: string = (await fs.readFile(path.join('./src/themes', fileName))).toString();
-    themeFile = themeFile.replace(/(\/\/").+?[\n\r]/g, '');
-    const theme: IVSCodeTheme = JSON.parse(themeFile);
-    const out = convertTheme(theme);
-    fs.ensureFileSync(path.join('./out', fileName));
-    await fs.writeFile(path.join('./out', fileName), JSON.stringify(out));
-});
+export function convertThemeFromDir(inputDir: string, outDir: string) {
+    fs.readdirSync(inputDir).map(async (fileName) => {
+        let themeFile: string = (await fs.readFile(path.join(inputDir, fileName))).toString();
+        themeFile = themeFile.replace(/(\/\/").+?[\n\r]/g, '');
+        const theme: IVSCodeTheme = JSON.parse(themeFile);
+        const out = convertTheme(theme);
+        fs.ensureFileSync(path.join(outDir, fileName));
+        await fs.writeFile(path.join(outDir, fileName), JSON.stringify(out));
+    });
+}
 
 export function convertTheme(theme: IVSCodeTheme): monaco.editor.IStandaloneThemeData {
 

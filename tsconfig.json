@@ -15,7 +15,7 @@
       "dom"
     ],
     "baseUrl": "./",
-    "module": "es6",
+    "module": "umd",
     "typeRoots": [
       "node_modules/@types"
     ],
