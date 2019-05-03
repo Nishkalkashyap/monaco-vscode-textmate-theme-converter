@@ -12,7 +12,7 @@ fs.readdirSync('./src/themes').map(async (fileName) => {
     await fs.writeFile(path.join('./out', fileName), JSON.stringify(out));
 });
 
-function convertTheme(theme: IVSCodeTheme): monaco.editor.IStandaloneThemeData {
+export function convertTheme(theme: IVSCodeTheme): monaco.editor.IStandaloneThemeData {
 
     const monacoThemeRule: IMonacoThemeRule = [];
     const returnTheme: monaco.editor.IStandaloneThemeData = {
