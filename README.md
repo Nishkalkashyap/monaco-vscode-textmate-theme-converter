@@ -11,7 +11,7 @@ Once the tokens are tmGrammar compatible, you need to convert vscode generated t
 ## Usage:
 
 ```ts
-import { convertTheme } from 'monaco-vscode-textmate-theme-converter';
+import { convertTheme, convertThemeFromDir } from 'monaco-vscode-textmate-theme-converter';
 
 /*
  * In vscode use command: `Developer: Generate Color Theme From Current Settings`
