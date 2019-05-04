@@ -5,14 +5,25 @@ import * as monaco from 'monaco-editor';
 export * from './interfaces';
 
 export function convertThemeFromDir(inputDir: string, outDir: string) {
-    fs.readdirSync(inputDir).map(async (fileName) => {
-        let themeFile: string = (await fs.readFile(path.join(inputDir, fileName))).toString();
-        themeFile = themeFile.replace(/(\/\/").+?[\n\r]/g, '');
-        const theme: IVSCodeTheme = JSON.parse(themeFile);
-        const out = convertTheme(theme);
-        fs.ensureFileSync(path.join(outDir, fileName));
-        await fs.writeFile(path.join(outDir, fileName), JSON.stringify(out));
-    });
+
+    const callBack = async (fileName: string) => {
+        try {
+            const filePath = path.join(inputDir, fileName);
+            if ((await fs.stat(filePath)).isDirectory()) {
+                return;
+            }
+            let themeFile: string = (await fs.readFile(filePath)).toString();
+            themeFile = themeFile.replace(/(\/\/").+?[\n\r]/g, '');
+            const theme: IVSCodeTheme = JSON.parse(themeFile);
+            const out = convertTheme(theme);
+            fs.ensureFileSync(path.join(outDir, fileName));
+            await fs.writeFile(path.join(outDir, fileName), JSON.stringify(out));
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+
+    fs.readdirSync(inputDir).map(callBack);
 }
 
 export function convertTheme(theme: IVSCodeTheme): monaco.editor.IStandaloneThemeData {
@@ -27,18 +38,35 @@ export function convertTheme(theme: IVSCodeTheme): monaco.editor.IStandaloneThem
     };
 
     theme.tokenColors.map((color) => {
+
         if (typeof color.scope == 'string') {
+
+            const split = color.scope.split(',');
+
+            if (split.length > 1) {
+                color.scope = split;
+                evalAsArray();
+                return;
+            }
+
+
+
             monacoThemeRule.push(Object.assign({}, color.settings, {
+                // token: color.scope.replace(/\s/g, '')
                 token: color.scope
             }));
             return;
         }
 
-        color.scope.map((scope) => {
-            monacoThemeRule.push(Object.assign({}, color.settings, {
-                token: scope
-            }));
-        });
+        evalAsArray();
+
+        function evalAsArray() {
+            (color.scope as string[]).map((scope) => {
+                monacoThemeRule.push(Object.assign({}, color.settings, {
+                    token: scope
+                }));
+            });
+        }
     });
 
     return returnTheme;
