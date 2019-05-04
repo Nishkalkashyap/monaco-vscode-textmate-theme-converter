@@ -1,14 +1,26 @@
 {
   "name": "monaco-vscode-textmate-theme-converter",
   "version": "0.0.7",
-  "description": "",
+  "description": "Converts VSCode themes to monaco editor themes.",
+  "author": "Nishkal <hello@nishkal.in>",
+  "repository": "https://github.com/Nishkalkashyap/monaco-vscode-textmate-theme-converter",
+  "homepage": "https://github.com/Nishkalkashyap/monaco-vscode-textmate-theme-converter",
+  "bugs": {
+    "url": "https://github.com/Nishkalkashyap/monaco-vscode-textmate-theme-converter/issues"
+  },
   "main": "./lib/index.js",
+  "keywords": [
+    "monaco-editor",
+    "monaco-textmate",
+    "monaco",
+    "editor",
+    "vscode"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "tsc",
+    "build": "tsc",
     "prepublishOnly": "tsc"
   },
-  "author": "",
   "license": "MIT",
   "devDependencies": {
     "@types/fs-extra": "^5.0.5",
