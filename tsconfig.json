@@ -15,11 +15,9 @@
       "dom"
     ],
     "baseUrl": "./",
-    "module": "umd",
     "typeRoots": [
       "node_modules/@types"
     ],
     "strict": false,
-    "outDir": "./lib"
   }
 }

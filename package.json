@@ -8,7 +8,7 @@
   "bugs": {
     "url": "https://github.com/Nishkalkashyap/monaco-vscode-textmate-theme-converter/issues"
   },
-  "main": "./lib/index.js",
+  "main": "./lib/umd/index.js",
   "keywords": [
     "monaco-editor",
     "monaco-textmate",
@@ -18,8 +18,9 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "prepublishOnly": "tsc"
+    "build": "tsc --module umd --outDir lib/umd",
+    "build-cjs": "tsc --module commonjs --outDir lib/cjs",
+    "prepublishOnly": "npm run build && npm run build-cjs"
   },
   "license": "MIT",
   "devDependencies": {
@@ -31,5 +32,8 @@
     "fs-extra": "^7.0.1",
     "monaco-editor": "^0.16.2"
   },
-  "types": "./lib/index.d.ts"
+  "peerDependencies": {
+    "tslib": "^2.0.1"
+  },
+  "types": "./lib/umd/index.d.ts"
 }
