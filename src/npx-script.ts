@@ -5,7 +5,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 program
-  .version("0.1.2")
+  .version("0.1.5-beta.0")
   .requiredOption('-i, --input <inputPath>', 'Specify a file or a folder')
   .option('-o, --output <outputPath>', 'Specify an output path');
 
