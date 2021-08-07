@@ -31,11 +31,11 @@
     "commander": "^8.1.0",
     "ts-node": "^8.1.0",
     "tslib": "^2.3.0",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "monaco-editor": "^0.16.2"
   },
   "dependencies": {
-    "fs-extra": "^7.0.1",
-    "monaco-editor": "^0.16.2"
+    "fs-extra": "^7.0.1"
   },
   "peerDependencies": {
     "tslib": "^2.0.1"
