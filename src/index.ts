@@ -4,6 +4,22 @@ import * as path from 'path';
 import * as monaco from 'monaco-editor';
 export * from './interfaces';
 
+export function convertThemeFromFilePath(inputFilePath: string, outputFilePath: string){
+    const exists = fs.existsSync(inputFilePath);
+    if(!exists) throw Error('Filepath does not exists');
+
+    const stats = fs.statSync(inputFilePath);
+    const isFile = stats.isFile();
+    if(!isFile) throw Error('Expected an input file path, got a directory');
+
+    let themeFile = fs.readFileSync(inputFilePath).toString();
+    themeFile = themeFile.replace(/(\/\/").+?[\n\r]/g, '');
+    const theme: IVSCodeTheme = JSON.parse(themeFile);
+    const convertedTheme = convertTheme(theme);
+    fs.ensureFileSync(outputFilePath);
+    fs.writeFileSync(outputFilePath, JSON.stringify(convertedTheme, null, 4));
+}
+
 export function convertThemeFromDir(inputDir: string, outDir: string) {
 
     const callBack = async (fileName: string) => {
