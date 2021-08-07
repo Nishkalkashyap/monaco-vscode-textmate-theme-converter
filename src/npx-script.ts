@@ -1,11 +1,11 @@
+#! /usr/bin/env node
 import { program } from 'commander';
-const packageJson = require('./../package.json');
 import {convertThemeFromDir, convertThemeFromFilePath} from './index';
 import * as fs from 'fs-extra';
 import * as path from 'path';
 
 program
-  .version(packageJson.version)
+  .version("0.1.1")
   .requiredOption('-i, --input <inputPath>', 'Specify a file or a folder')
   .option('-o, --output <outputPath>', 'Specify an output path');
 

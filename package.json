@@ -22,6 +22,9 @@
     "build-cjs": "tsc --module commonjs --outDir lib/cjs",
     "prepublishOnly": "npm run build && npm run build-cjs"
   },
+  "bin": {
+    "mvttc": "./lib/cjs/npx-script.js"
+  },
   "license": "MIT",
   "devDependencies": {
     "@types/fs-extra": "^5.0.5",
