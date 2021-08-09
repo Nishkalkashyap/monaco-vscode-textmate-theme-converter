@@ -77,11 +77,13 @@ export function convertTheme(theme: IVSCodeTheme): monaco.editor.IStandaloneThem
         evalAsArray();
 
         function evalAsArray() {
-            (color.scope as string[]).map((scope) => {
-                monacoThemeRule.push(Object.assign({}, color.settings, {
-                    token: scope
-                }));
-            });
+            if (color.scope) {
+                (color.scope as string[]).map((scope) => {
+                    monacoThemeRule.push(Object.assign({}, color.settings, {
+                        token: scope
+                    }));
+                });
+            }
         }
     });
 
